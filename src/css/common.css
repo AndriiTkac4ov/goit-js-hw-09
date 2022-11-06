@@ -16,3 +16,17 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.timer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.field:not(:last-child) {
+  margin-right: 40px;
+}
+
+span.value {
+  font-size: 32px;
+  color: red;
+}
