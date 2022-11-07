@@ -10,6 +10,8 @@ const refs = {
   second: document.querySelector('span.value[data-seconds]'),
 };
 
+refs.btnStart.addEventListener('click', onBtnStart)
+
 refs.btnStart.disabled = true;
 
 let futureTime = null;
@@ -34,8 +36,6 @@ const options = {
 
 const fp = flatpickr(refs.timerInput, options)
 
-refs.btnStart.addEventListener('click', onBtnStart)
-
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
@@ -55,6 +55,10 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+function addLeadingZero(value) {
+    return String(value).padStart(2, '0');
+}
+
 function onBtnStart() {
     setInterval(() => {
         const currentTime = Date.now();
@@ -63,18 +67,11 @@ function onBtnStart() {
         if (remainingTime < 0) {
             return
         } else {
-            refs.day.textContent = convertMs(remainingTime).days;
-            refs.hour.textContent = convertMs(remainingTime).hours;
-            refs.minute.textContent = convertMs(remainingTime).minutes;
-            refs.second.textContent = convertMs(remainingTime).seconds;
+            const { days, hours, minutes, seconds } = convertMs(remainingTime);
+            refs.day.textContent = addLeadingZero(days);
+            refs.hour.textContent = addLeadingZero(hours);
+            refs.minute.textContent = addLeadingZero(minutes);
+            refs.second.textContent = addLeadingZero(seconds);
         }
     }, 1000)
 }
-
-// function superFunk(msss, convertMs) {
-//     convertMs(msss);
-//     refs.day.textContent = `${days}`;
-//     refs.hour.textContent = `${hours}`;
-//     refs.minute.textContent = `${minutes}`;
-//     refs.second.textContent = `${seconds}`;
-// }
