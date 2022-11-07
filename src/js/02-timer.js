@@ -12,7 +12,7 @@ const refs = {
 
 refs.btnStart.disabled = true;
 
-let differenceOfDates = null;
+let futureTime = null;
 
 const options = {
     enableTime: true,
@@ -20,14 +20,14 @@ const options = {
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-        differenceOfDates = selectedDates[0].getTime() - options.defaultDate.getTime();
+        futureTime = selectedDates[0].getTime();
 
         if (selectedDates[0] <= options.defaultDate) {
             refs.btnStart.disabled = true;
             window.alert('Please choose a date in the future');
         } else {
             refs.btnStart.disabled = false;
-            return differenceOfDates;
+            return futureTime;
         }
     },
 };
@@ -56,10 +56,25 @@ function convertMs(ms) {
 }
 
 function onBtnStart() {
-    convertMs(differenceOfDates);
-    
-    refs.day.textContent = convertMs(differenceOfDates).days;
-    refs.hour.textContent = convertMs(differenceOfDates).hours;
-    refs.minute.textContent = convertMs(differenceOfDates).minutes;
-    refs.second.textContent = convertMs(differenceOfDates).seconds;
+    setInterval(() => {
+        const currentTime = Date.now();
+        const remainingTime = futureTime - currentTime;
+
+        if (remainingTime < 0) {
+            return
+        } else {
+            refs.day.textContent = convertMs(remainingTime).days;
+            refs.hour.textContent = convertMs(remainingTime).hours;
+            refs.minute.textContent = convertMs(remainingTime).minutes;
+            refs.second.textContent = convertMs(remainingTime).seconds;
+        }
+    }, 1000)
 }
+
+// function superFunk(msss, convertMs) {
+//     convertMs(msss);
+//     refs.day.textContent = `${days}`;
+//     refs.hour.textContent = `${hours}`;
+//     refs.minute.textContent = `${minutes}`;
+//     refs.second.textContent = `${seconds}`;
+// }
