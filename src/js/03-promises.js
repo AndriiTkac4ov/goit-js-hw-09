@@ -5,7 +5,21 @@ const refs = {
   btnCreatePromises: document.querySelector('button'),
 }
 
-refs.form.addEventListener('input', createPromise);
+refs.form.addEventListener('input', createDatesForPromisesGenerator);
+refs.btnCreatePromises.addEventListener('click', startPromisesGenerator);
+
+function startPromisesGenerator() {
+  console.log('You are on the right way;) keep going!!!');
+  createPromise(12, 2000).then(onMakeNotifySuccess).catch(onMakeNotifyError);
+}
+
+const formData = {};
+
+function createDatesForPromisesGenerator(event) {
+  formData[event.target.name] = event.target.value;
+  console.log(formData);
+  // createPromise(position, delay);
+}
 
 function createPromise(position, delay) {
   const promise = new Promise((resolve, reject) => {
@@ -23,8 +37,6 @@ function createPromise(position, delay) {
   return promise;
 }
 
-createPromise(12, 2000).then(onMakeNotifySuccess).catch(onMakeNotifyError);
-
 function onMakeNotifySuccess(result) {
   Notiflix.Notify.success(result);
 }
@@ -32,11 +44,3 @@ function onMakeNotifySuccess(result) {
 function onMakeNotifyError(result) {
   Notiflix.Notify.failure(result);
 }
-
-// const formData = {};
-
-// function onFormInput(event) {
-//   console.log('Show me INPUT');
-//   formData[event.target.name] = event.target.value;
-//   console.log(formData);
-// }
