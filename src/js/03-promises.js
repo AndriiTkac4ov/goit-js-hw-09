@@ -1,34 +1,42 @@
-function createPromise(position, delay) {
-  const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill
-  } else {
-    // Reject
-  }
-}
+import Notiflix from 'notiflix';
 
 const refs = {
   form: document.querySelector('.form'),
   btnCreatePromises: document.querySelector('button'),
 }
 
-refs.form.addEventListener('input', onFormInput);
+refs.form.addEventListener('input', createPromise);
 
-const formData = {};
+function createPromise(position, delay) {
+  const promise = new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3;
 
-console.log(refs.form)
-console.log(refs.btnCreatePromises)
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve(`✅ Fulfilled promise ${position} in ${delay}ms`)
+      } else {
+        reject(`❌ Rejected promise ${position} in ${delay}ms`)
+      }
+    }, delay);
+  })
 
-function onFormInput(event) {
-  console.log('Show me INPUT');
-  formData[event.target.name] = event.target.value;
-  console.log(formData);
+  return promise;
 }
 
-// createPromise(2, 1500)
-//   .then(({ position, delay }) => {
-//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//   })
-//   .catch(({ position, delay }) => {
-//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-//   });
+createPromise(12, 2000).then(onMakeNotifySuccess).catch(onMakeNotifyError);
+
+function onMakeNotifySuccess(result) {
+  Notiflix.Notify.success(result);
+}
+
+function onMakeNotifyError(result) {
+  Notiflix.Notify.failure(result);
+}
+
+// const formData = {};
+
+// function onFormInput(event) {
+//   console.log('Show me INPUT');
+//   formData[event.target.name] = event.target.value;
+//   console.log(formData);
+// }
