@@ -80,7 +80,7 @@ function onMakeNotifyError({ position, delay }) {
 //   btnCreatePromises: document.querySelector('button'),
 // }
 
-// refs.form.addEventListener('input', gatherDatesForPromisesGenerator);
+// refs.form.addEventListener('input', gatherDatasForPromisesGenerator);
 // refs.btnCreatePromises.addEventListener('click', startPromisesGenerator);
 
 // const formData = {};
@@ -88,7 +88,7 @@ function onMakeNotifyError({ position, delay }) {
 // function startPromisesGenerator(event) {
 //   event.preventDefault();
 
-//   gatherDatesForPromisesGenerator(event);
+//   gatherDatasForPromisesGenerator(event);
 
 //   for (let index = 1; index <= Number(amount); index += 1) {
 //     const mainDelay = Number(delay) + Number(step) * (index - 1);
@@ -97,7 +97,7 @@ function onMakeNotifyError({ position, delay }) {
 //   };
 // }
 
-// function gatherDatesForPromisesGenerator(event) {
+// function gatherDatasForPromisesGenerator(event) {
 //   formData[event.target.name] = event.target.value;
   
 //   return { delay, step, amount } = formData;
